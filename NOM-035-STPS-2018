@@ -1,0 +1,301 @@
+import pandas as pd
+import numpy as np
+import seaborn as sb
+import matplotlib.pyplot as plt
+
+
+# In[14]:
+
+
+nom= pd.read_csv('NOM-035-STPS-2018.csv')
+
+
+# In[15]:
+
+
+nom
+
+
+# In[16]:
+
+
+nom1= nom[['P1', 'P4', 'P23', 'P24', 'P25', 'P26', 'P27', 'P28', 'P30', 'P31', 'P32', 'P33',
+            'P34', 'P35', 'P36', 'P37', 'P38', 'P39', 'P40', 'P41', 'P42', 'P43', 'P44', 'P45', 'P46', 'P47', 
+            'P48', 'P49', 'P50', 'P51', 'P52', 'P53', 'P55', 'P56', 'P57']]
+nom2 = nom1.replace({"Siempre": 0, 'Casi siempre\xa0': 1,'Casi siempre': 1, "Algunas veces": 2,"Casi nunca": 3,"Nunca": 4})
+nom2.to_csv('NOM-part1.csv')
+nom2
+
+
+# In[17]:
+
+
+nom3 = nom[['P2','P3','P5','P6','P7','P8','P9','P10','P11','P12','P13','P14','P15','P16','P17','P18','P19','P20',
+          'P21', 'P22', 'P29', 'P54', 'P58', 'P59', 'P60', 'P61', 'P62', 'P63', 'P64', 'P65',
+            'P66', 'P67', 'P68', 'P69', 'P70']]
+nom4 = nom3.replace({"Siempre": 4, 'Casi siempre.\xa0': 3,'Casi siempre': 3, "Algunas veces": 2,"Casi nunca": 1,"Nunca": 0})
+nom4.to_csv('NOM-part2.csv')
+nom4
+
+
+# In[18]:
+
+
+nom4,nom2
+
+
+# In[19]:
+
+
+NOMF = pd.read_csv('NOM-035-1-STPS-2018.csv')
+
+
+# In[20]:
+
+
+NOMF.fillna(0)
+
+
+# In[21]:
+
+
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', -1)
+
+
+# In[22]:
+
+
+NOMSUM=NOMF.sum()
+NOMSUM.to_csv('sumanom.csv')
+NOMSUM.plot(kind = 'bar',
+            title="Resultados",
+           width=0.8,
+            figsize=(10,4));
+plt.savefig("Resultados3.jpg", bbox_inches='tight')
+
+
+# In[23]:
+
+
+import matplotlib.pyplot as plt
+
+
+# In[24]:
+
+
+
+cols_a_sumar = ['P1','P3']
+print("Condiciones Peligrosas:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+cols_a_sumar = ['P2','P4']
+print("Condiciones deficientes e insalubres:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P5']
+print("trabajos Peligrosos:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+cols_a_sumar = ['P6','P12']
+print("Cargas cuantitativas:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P7','P8']
+print("Ritmos de trabajo acelerado:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P9','P10','P11']
+print("Carga mental:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P64','P65','P66',]
+print("Cargas psicológicas emocionales:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P13','P14']
+print("Cargas de alta responsabilidad:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P15','P16']
+print("Cargas contradictorias o inconsistentes:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P25','P26','P27','P28']
+print("Falta de control y autonomía sobre el trabajo:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P23','P24']
+print("Limitada o nula posibilidad de desarrollos:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P29','P30']
+print("Insuficiente participación y manejo del cambio:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P35','P36']
+print("Limitada o inexistente capacitación:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P17','P18']
+print("Jornadas de trabajo extensas:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P19','P20']
+print("Influencia del trabajo fuera del centro laboral:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P21','P22']
+print("Influencia de las responsabilidades familiares:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P31','P32','P33','P34']
+print("Escaza claridad de funciones:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P37','P38','P39','P40','P41']
+print("Características del liderazgo:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P42','P43','P44','P45','P46']
+print("Relaciones sociales en el trabajo:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P67','P68','P69','P70']
+print("Deficiente relación con los colaboradores que supervisa:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P57','P58','P59','P60','P61','P62','P63',]
+print("Violencia laboral:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P47','P48']
+print("Escasa o nula retroalimentación del desempeño:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P49','P50','P51','P52']
+print("Escaso o nulo reconocimiento y compensación:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+cols_a_sumar = ['P55','P56']
+print("Limitado sentido de pertenencia:", NOMSUM[cols_a_sumar].sum())
+#//////////////////////////////
+
+cols_a_sumar = ['P53','P54']
+print("Inestabilidad laboral:", NOMSUM[cols_a_sumar].sum())
+
+#//////////////////////////////
+
+
+# In[25]:
+
+
+resultado = np.array([[199,151,150,242,206,553,31,398,140,389,160,200,166,172,85,119,150,228,232,88,263,141,250,19,238]])
+result=pd.DataFrame(resultado,
+                   columns = ["Condiciones Peligrosas","Condiciones deficientes e insalubres","trabajos Peligrosos","Cargas cuantitativas","Ritmos de trabajo acelerado",
+                              "Carga mental","Cargas psicológicas emocionales","Cargas de alta responsabilidad","Cargas contradictorias o inconsistentes","Falta de control y autonomía sobre el trabajo",
+                              "Limitada o nula posibilidad de desarrollos","Insuficiente participación y manejo del cambio","Limitada o inexistente capacitación","Jornadas de trabajo extensas","Influencia del trabajo fuera del centro laboral",
+                              "Influencia de las responsabilidades familiares","Escaza claridad de funciones","Características del liderazgo","Relaciones sociales en el trabajo","Deficiente relación con los colaboradores que supervisa",
+                              "Violencia laboral","Escasa o nula retroalimentación del desempeño","Escaso o nulo reconocimiento y compensación","Limitado sentido de pertenencia","Inestabilidad laboral",])
+result
+
+
+# In[26]:
+
+
+result.plot(kind = 'bar',
+            title="Resultados",
+           width=0.8,
+            figsize=(30,20));
+plt.savefig("Resultados1.jpg", bbox_inches='tight')
+
+
+# In[27]:
+
+
+a = [199,151,150,242,206,553,31,398,140,389,160,200,166,172,85,119,150,228,232,88,263,141,250,19,238]
+a1= ['CondicionesPeligrosas',"Condicionesdeficienteseinsalubres","trabajos Peligrosos","Cargas cuantitativas","Ritmos de trabajo acelerado",
+                              "Carga mental","Cargas psicológicas emocionales","Cargas de alta responsabilidad","Cargas contradictorias o inconsistentes","Falta de control y autonomía sobre el trabajo",
+                              "Limitada o nula posibilidad de desarrollos","Insuficiente participación y manejo del cambio","Limitada o inexistente capacitación","Jornadas de trabajo extensas","Influencia del trabajo fuera del centro laboral",
+                              "Influencia de las responsabilidades familiares","Escaza claridad de funciones","Características del liderazgo","Relaciones sociales en el trabajo","Deficiente relación con los colaboradores que supervisa",
+                              "Violencia laboral","Escasa o nula retroalimentación del desempeño","Escaso o nulo reconocimiento y compensación","Limitado sentido de pertenencia","Inestabilidad laboral",]
+a1
+
+
+# In[28]:
+
+
+b = np.array(a)
+
+
+# In[29]:
+
+
+E = b.T
+E
+D=pd.DataFrame(E,a1)
+D
+D.plot(kind ='pie',
+      subplots=True,
+        figsize=(20,20))
+plt.savefig("Resultados.jpg", bbox_inches='tight')
+
+
+# In[30]:
+
+
+D.to_csv('resultados.csv')
+
+
+# In[31]:
+
+
+D
+
+
+# In[32]:
+
+
+NOM2=NOMF.sum(axis=1)
+NOM2
+
+
+# In[33]:
+
+
+F = nom['Name']
+G = np.array(F)
+G.T
+
+
+# In[34]:
+
+
+H = np.array(NOM2)
+H
+
+
+# In[35]:
+
+
+I=pd.DataFrame(H,G.T)
+I
+I.plot(kind ='bar',
+      subplots=True,
+        figsize=(20,20))
+plt.savefig("Resultados5.jpg", bbox_inches='tight')
+
+
+# In[36]:
+
+
+I.to_csv('Resultados por persona.csv')
+
+
+# In[37]:
+
+
+I
+
+
+# In[ ]:
